@@ -6,7 +6,6 @@ body {
   background-color: #eef8bf;
   font-family: "Roboto", sans-serif;
   color: #75b79e;
-
   font-size: 56px;
   font-weight: 700;
   line-height: 66px;
@@ -20,14 +19,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blue;
-
 }
+
 .cards{
   margin-top: 40px;
-  background-color: aqua;
   width: 100%;
-  height: 300px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -68,6 +64,13 @@ main {
 
 .back, .flip .front{
   transform: rotateY(180deg);
+}
+
+.timer{
+  font-size: 36px;
+  position: fixed;
+  top: 10px;
+  right: 16px;
 }
 
 
