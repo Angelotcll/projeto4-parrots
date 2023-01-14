@@ -58,12 +58,12 @@ function comparador() {
 }
 
 for (let index = 0; index < numeroDeCartas; index++) { 
-   cartas.innerHTML += `<div class="card" onclick="flip(this)" data-valor="${imagens[index]})">
+   cartas.innerHTML += `<div data-test ="card" class="card" onclick="flip(this)" data-valor="${imagens[index]})">
    <div class="front">
-       <img src="./img/back.png" alt="">
+       <img  data-test="face-down-image" src="./img/back.png" alt="">
    </div>
    <div class="back">
-       <img src="./img/imagem${imagens[index]}.gif" alt="">
+       <img  data-test="face-up-image" src="./img/imagem${imagens[index]}.gif" alt="">
    </div>    
   </div>`;   
 }
