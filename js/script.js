@@ -3,6 +3,8 @@ let numeroDeCartas;
 const imagens = [];
 let cartaVirada = null;
 let animando = false;
+let numeroCartasViradas = 0;
+let numeroJogadas = 0;
 
 
 do {
@@ -40,14 +42,13 @@ function faixaDeValores(valor){
 }
 
 const cartas = document.querySelector(".cards");
-cartas.style.maxWidth = (125 * numeroDeCartas/2) +"px";
+
+if(numeroDeCartas > 7){
+  cartas.style.maxWidth = (125 * numeroDeCartas/2) +"px";
+}
 
 for (let index = 0; index < numeroDeCartas; index++){
-  imagens[index] = index < 2 
-    ? 1
-    : ehImpar(index) 
-      ? index-1
-      :index;
+  imagens[index] = index - (Math.ceil(index/2) -1 );
 }
 
 imagens.sort(comparador); // Após esta linha, a minhaArray estará embaralhada
@@ -68,33 +69,43 @@ for (let index = 0; index < numeroDeCartas; index++) {
 }
 
 function flip(carta){
-if(animando){
-  return;
-}  
-carta.classList.toggle('flip');
+  numeroJogadas = numeroJogadas + 1;
+ 
+  if(animando){
+    return;
+  }  
+  carta.classList.toggle('flip');
 
-if(!cartaVirada){
-  cartaVirada = carta;
-  return;
-}
+  if(!cartaVirada){
+    cartaVirada = carta;
+    numeroCartasViradas = numeroCartasViradas + 1;
+    return;
+  }
 
-if(cartaVirada.dataset.valor !== carta.dataset.valor){
-  animando = true;
-  setTimeout(() => {
-    carta.classList.toggle('flip');
-    cartaVirada.classList.toggle('flip');
-    console.log(cartaVirada);
-    cartaVirada = null;
-    animando = false;
-  },3000);   
-  return;
-}
+  numeroCartasViradas = numeroCartasViradas + 1;
+
+  if(cartaVirada.dataset.valor !== carta.dataset.valor){
+    animando = true;
+    setTimeout(() => {
+      carta.classList.toggle('flip');
+      cartaVirada.classList.toggle('flip');
+      cartaVirada = null;
+      animando = false;
+      numeroCartasViradas = numeroCartasViradas - 2;
+    },3000);   
+    return;
+  }
 
   carta.removeAttribute("onclick");
   cartaVirada = null;
 
-}
+  if(numeroCartasViradas === numeroDeCartas){
+    setTimeout(() => {
+    alert("Você ganhou em " + numeroJogadas + " jogadas!");
+    },100);
+  }
 
-function compararCarta(){
+  }
 
-}
+  
+
