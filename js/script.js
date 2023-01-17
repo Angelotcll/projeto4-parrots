@@ -1,15 +1,16 @@
-let numeroDeCartas;
+let imagens,
+    cartaVirada,
+    animando,
+    numeroCartasViradas,
+    numeroJogadas,
+    reiniciar,
+    idInterval,
+    segundos,
+    numeroDeCartas;
 
-const imagens = [];
-let cartaVirada;
-let animando;
-let numeroCartasViradas;
-let numeroJogadas;
-const cartas = document.querySelector(".cards");
-let reiniciar;
-let idInterval;
-let segundos;
-const contador = document.querySelector(".timer");  
+const cartas = document.querySelector(".cards"),
+      contador = document.querySelector(".timer");  
+
 
 function tempo(){
   contador.innerText = segundos;
@@ -45,11 +46,9 @@ function flip(carta){
 
   if(!cartaVirada){
     cartaVirada = carta;
-    numeroCartasViradas = numeroCartasViradas + 1;
     return;
   }
 
-  numeroCartasViradas = numeroCartasViradas + 1;
 
   if(cartaVirada.dataset.valor !== carta.dataset.valor){
     animando = true;
@@ -58,11 +57,11 @@ function flip(carta){
       cartaVirada.classList.toggle('flip');
       cartaVirada = null;
       animando = false;
-      numeroCartasViradas = numeroCartasViradas - 2;
     },2000);   
     return;
   }
 
+  numeroCartasViradas += 2;
   cartaVirada.removeAttribute("onclick");
   carta.removeAttribute("onclick");
   cartaVirada = null;
@@ -70,33 +69,31 @@ function flip(carta){
   if(numeroCartasViradas === numeroDeCartas){
     clearInterval(idInterval);
     setTimeout(() => {
-    alert("Você ganhou em " + numeroJogadas + " jogadas!" + " A duração do jogo foi de " + (segundos-1) + " segundos!");
-   
-    reiniciar = prompt("Gostaria de reiniciar a partida,\n sim ou não?");; 
+      alert("Você ganhou em " + numeroJogadas + " jogadas! A duração do jogo foi de " + (segundos-1) + " segundos!");
+    
+      reiniciar = prompt("Gostaria de reiniciar a partida,\n sim ou não?");; 
 
-    while (reiniciar !== "sim" && reiniciar !== "não"){
-      reiniciar = prompt("Gostaria de reiniciar a partida,\n  digite exatamente sim ou não?");
-    }
+      while (reiniciar !== "sim" && reiniciar !== "não"){
+        reiniciar = prompt("Gostaria de reiniciar a partida,\n  digite exatamente sim ou não?");
+      }
 
-    if(reiniciar === "sim"){
-      iniciarJogo();
-    }
-  
-  },1000);
+      if(reiniciar === "sim"){
+        iniciarJogo();
+      }
+    
+    },1000);
 
   }
 
 }
   
 function iniciarJogo(){
-  segundos = 0;
   cartas.innerHTML = "";
+  imagens = [];
+  numeroCartasViradas = numeroJogadas = segundos = 0;
   cartaVirada = null;
   animando = false;
-  numeroCartasViradas = 0;
-  numeroJogadas = 0;
-  segundos = 0;
-
+  
   do {
     numeroDeCartas = parseInt(prompt("informe o número de cartas"));
   
@@ -118,8 +115,7 @@ function iniciarJogo(){
   } while (!numeroDeCartas);
 
   if(numeroDeCartas > 7){
-    cartas.style.maxWidth = (125 * numeroDeCartas/2) +"px";
-    cartas.style.height = 326 +"px";
+    cartas.style.maxWidth = (126 * numeroDeCartas/2) +"px";
   }
   
   for (let index = 0; index < numeroDeCartas; index++){
@@ -130,12 +126,12 @@ function iniciarJogo(){
   
   
   for (let index = 0; index < numeroDeCartas; index++) { 
-     cartas.innerHTML += `<div data-test ="card" class="card" onclick="flip(this)" data-valor="${imagens[index]})">
+     cartas.innerHTML += `<div data-test ="card" class="card" onclick="flip(this)" data-valor="${imagens[index]}">
      <div class="front">
-         <img  data-test="face-down-image" src="./img/back.png" alt="">
+        <img data-test="face-down-image" src="./img/back.png" alt="">
      </div>
      <div class="back">
-         <img  data-test="face-up-image" src="./img/imagem${imagens[index]}.gif" alt="">
+        <img data-test="face-up-image" src="./img/imagem${imagens[index]}.gif" alt="">
      </div>    
     </div>`;   
   }

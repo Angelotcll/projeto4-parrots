@@ -6,11 +6,7 @@ body {
   background-color: #eef8bf;
   font-family: "Roboto", sans-serif;
   color: #75b79e;
-  font-size: 56px;
-  font-weight: 700;
-  line-height: 66px;
-  letter-spacing: -0.004em;
-  text-align: left;
+  
 }
 
 main {
@@ -21,17 +17,29 @@ main {
   align-items: center;
 }
 
+h1{
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.004em;
+  text-align: center;
+}
+
 .cards{
   margin-top: 40px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 34px;
+  gap: 30px 10px;
 }
+
 .card{
   width: 117px;
+  height: 146px;
   perspective: 1000px;
+  position: relative;
 }
 
 .card div{
@@ -45,7 +53,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 146px;
+  height: 100%;
 }
 
 .card img{
@@ -75,4 +83,7 @@ main {
 
 
 @media (max-width: 335px) {
+  h1{
+    font-size: 36px;
+  }
 }
